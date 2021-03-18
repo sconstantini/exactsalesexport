@@ -1,0 +1,40 @@
+#importando os módulos do python a serem utilizados no código - 1a caixa de código do Colab
+import requests
+import urllib
+import json
+import time
+from datetime import datetime
+from google.colab import files
+
+#codigo. Você deverá colocar seu token no campo "'token_exact'", onde apontado - 2a caixa de código do colab
+#O token deverá ser gerado no sistema Exact Spotter, em CONFIGURAÇÕES > GERAIS. Importante: Não compartilhe o token!
+
+headers = {
+  'Content-Type': 'application/json',
+  'token_exact': 'insira-aqui-seu-token-do-exact'
+}
+
+lista = []
+c=1
+for i in range(22):
+  response = requests.get('https://api.exactsales.com.br/v2/listarlead?page='+str(c), headers=headers)
+
+  #print(response.status_code)
+  a=response.json()
+  time.sleep(1)
+  lista.extend(a)
+  last_index = len(a)
+  print(len(lista))
+  if last_index != 100:
+    break
+  else:
+    c += 1
+
+dt = datetime.now().strftime('%d/%m/%Y %H:%M')
+for row in lista:
+    row['Data do backup']=dt
+    
+#export do arquivo em formato .json - 3a caixa de código do colab
+with open('exact.json', 'w', encoding='utf-8') as f:
+json.dump(lista, f) 
+files.download('exact.json')
