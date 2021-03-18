@@ -1,12 +1,15 @@
-#importando os módulos do python a serem utilizados no código - 1a caixa de código do Colab
+#INICIO CAIXA 1 DO COLAB
+#importando os módulos do python a serem utilizados no código
 import requests
 import urllib
 import json
 import time
 from datetime import datetime
 from google.colab import files
+#FIM CAIXA 1 DO COLAB
 
-#codigo. Você deverá colocar seu token no campo "'token_exact'", onde apontado - 2a caixa de código do colab
+#INICIO CAIXA 2 DO COLAB
+#codigo. Você deverá colocar seu token no campo "'token_exact'", onde apontado
 #O token deverá ser gerado no sistema Exact Spotter, em CONFIGURAÇÕES > GERAIS. Importante: Não compartilhe o token!
 
 headers = {
@@ -33,8 +36,11 @@ for i in range(22):
 dt = datetime.now().strftime('%d/%m/%Y %H:%M')
 for row in lista:
     row['Data do backup']=dt
-    
-#export do arquivo em formato .json - 3a caixa de código do colab
+#FIM CAIXA 2 DO COLAB
+
+#INICIO CAIXA 3 DO COLAB
+#export do arquivo em formato .json
 with open('exact.json', 'w', encoding='utf-8') as f:
 json.dump(lista, f) 
 files.download('exact.json')
+#FIM CAIXA 3 DO COLAB
